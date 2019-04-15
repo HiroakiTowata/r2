@@ -14,12 +14,13 @@ import {
   TransactionsResponse,
   Pagination,
   Transaction,
-  LeverageBalanceResponse
+  LeverageBalanceResponse,
+  RateResponse
 } from './types';
 import { setTimeout } from 'timers';
 
 export default class BrokerApi {
-  private static CACHE_MS = 1000;
+  private static CACHE_MS = 3000;
   private leveragePositionsCache?: LeveragePosition[];
   private readonly baseUrl = 'https://coincheck.com';
   private readonly webClient: WebClient = new WebClient(this.baseUrl);
@@ -86,6 +87,11 @@ export default class BrokerApi {
   async getTransactions(pagination: Partial<Pagination>): Promise<TransactionsResponse> {
     const path = '/api/exchange/orders/transactions_pagination';
     return new TransactionsResponse(await this.get<TransactionsResponse, Partial<Pagination>>(path, pagination));
+  }
+
+  async getRate(pair : string): Promise<RateResponse> {
+    const path = `/api/rate/${pair}`;
+    return new RateResponse(await this.get<RateResponse>(path));
   }
 
   async getTransactionsWithStartDate(from: Date): Promise<Transaction[]> {

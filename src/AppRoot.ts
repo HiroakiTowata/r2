@@ -10,6 +10,7 @@ import PositionService from './PositionService';
 import Arbitrager from './Arbitrager';
 import ReportService from './ReportService';
 import BrokerStabilityTracker from './BrokerStabilityTracker';
+import PositionAdjuster from './PositionAdjuster';
 import WebGateway from './WebGateway';
 
 export default class AppRoot {
@@ -28,7 +29,8 @@ export default class AppRoot {
         this.ioc.get(Arbitrager),
         this.ioc.get(ReportService),
         this.ioc.get(BrokerStabilityTracker),
-        this.ioc.get(WebGateway)
+        this.ioc.get(WebGateway),
+        this.ioc.get(PositionAdjuster),        
       ];
       for (const service of this.services) {
         await service.start();

@@ -22,6 +22,7 @@ import { AwaitableEventEmitter } from '@bitr/awaitable-event-emitter';
 import WebGateway from './WebGateway';
 import { getHistoricalOrderStore } from './HistoricalOrderStore';
 import OrderService from './OrderService';
+import PositionAdjuster from './PositionAdjuster';
 
 decorate(injectable(), EventEmitter);
 decorate(injectable(), AwaitableEventEmitter);
@@ -88,5 +89,9 @@ container
   .bind<OrderService>(OrderService)
   .toSelf()
   .inSingletonScope();
+container
+  .bind<PositionAdjuster>(PositionAdjuster)
+  .toSelf()
+  .inSingletonScope();  
 
 export default container;

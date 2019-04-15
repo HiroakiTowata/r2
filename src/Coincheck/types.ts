@@ -247,3 +247,8 @@ export interface CashMarginTypeStrategy {
   send(order: Order): Promise<void>;
   getBtcPosition(): Promise<number>;
 }
+
+export class RateResponse extends Castable {
+  @cast rate: number;
+}
+
