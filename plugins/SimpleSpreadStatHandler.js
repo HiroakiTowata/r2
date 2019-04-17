@@ -1,10 +1,12 @@
 const _ = require('lodash');
 const ss = require('simple-statistics');
 const { getLogger } = require('@bitr/logger');
+const 
 
 const precision = 3;
 
 class SimpleSpreadStatHandler {
+
   // Constructor is called when initial snapshot of spread stat history has arrived.
   constructor(history) {
     this.log = getLogger(this.constructor.name);
@@ -41,7 +43,7 @@ class SimpleSpreadStatHandler {
     const n = this.sampleSize;
     const mean = this.profitPercentMean;
     const standardDeviation = Math.sqrt(this.profitPercentVariance * n/(n-1));
-    const minTargetProfitPercent = Math.max(_.round(mean + standardDeviation, precision), 0.10);
+    const minTargetProfitPercent = Math.max(_.round(mean + standardDeviation, precision), 0.25);
     if (_.isNaN(minTargetProfitPercent)) {
       return undefined;
     }
@@ -54,6 +56,7 @@ class SimpleSpreadStatHandler {
     const config = { minTargetProfitPercent };
     return config;
   }
+
 }
 
 module.exports = SimpleSpreadStatHandler;
