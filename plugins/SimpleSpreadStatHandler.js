@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const ss = require('simple-statistics');
 const { getLogger } = require('@bitr/logger');
-const 
 
 const precision = 3;
 

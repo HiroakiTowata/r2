@@ -10,7 +10,7 @@ import QuoteAggregator from './QuoteAggregator';
 import PositionService from './PositionService';
 import OpportunitySearcher from './OpportunitySearcher';
 import PairTrader from './PairTrader';
-import PositionAdjuster from './PositionAdjuster';
+//import PositionAdjuster from './PositionAdjuster';
 
 @injectable()
 export default class Arbitrager {
@@ -25,7 +25,7 @@ export default class Arbitrager {
     private readonly positionService: PositionService,
     private readonly opportunitySearcher: OpportunitySearcher,
     private readonly pairTrader: PairTrader,
-    private readonly positionAdjuster: PositionAdjuster
+    //private readonly positionAdjuster: PositionAdjuster
   ) {
     this.opportunitySearcher.on('status', x => (this.status = x));
     this.pairTrader.on('status', x => (this.status = x));
@@ -63,10 +63,12 @@ export default class Arbitrager {
   private async arbitrage(quotes: Quote[]): Promise<void> {
     this.status = 'Arbitraging';
     const searchResult = await this.opportunitySearcher.search(quotes);
+    
     if (!searchResult.found) {
-      await this.positionAdjuster.seek();
+      //await this.positionAdjuster.seek();
       return;
     }
+    
 
     try {
       await this.pairTrader.trade(searchResult.spreadAnalysisResult, searchResult.closable);
